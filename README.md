@@ -1,4 +1,4 @@
-# cfc_groupwarn
+# CFC GroupWarn
 
 Checks new player's Steam Groups and alerts Staff Members if members from those groups have been banned.
 
