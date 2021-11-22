@@ -15,6 +15,8 @@ class Checker
         steamID64 = ply\SteamID64!
         @getGroupsForPlayer steamID64, (groups) ->
             counts = @Storage\GetTotals groups
+            return unless counts
+
             total = 0
 
             for entry in *counts
