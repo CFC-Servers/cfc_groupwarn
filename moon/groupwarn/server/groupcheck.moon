@@ -10,6 +10,6 @@ hook.Add "ULibPlayerBanned", "CFC_GroupCheck", (steamID) ->
 
 hook.Add "PlayerAuthed", "CFC_GroupCheck", (ply, steamID) ->
     steamID64 = SteamIDTo64 steamID
-    return if GroupCheckCache\get steamID64
+    return if GroupCheck.Cache\get steamID64
 
-    checkGroups getGroupsForPlayer steamID64
+    GroupCheck.Checker\checkGroups ply

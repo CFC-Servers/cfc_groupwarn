@@ -1,5 +1,6 @@
 import concat from table
 import Compress, Decompress from util
+import Split from string
 
 class Cacher
     @separator: ","

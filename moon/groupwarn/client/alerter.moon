@@ -1,13 +1,14 @@
-YELLOW = Color 180, 180, 0
-RED = Color 180, 0, 0
-WHITE = Color 180, 180, 180
+YELLOW = Color 250, 250, 0
+RED = Color 250, 0, 0
+WHITE = Color 250, 250, 250
+GREY = Color 100, 100, 100
+LIGHTBLUE = Color 58, 188, 230
 
 net.Receive "CFC_GroupCheck_BannedGroupMembers", ->
     ply = net.ReadEntity!
-    count = net.ReadUInt 14
+    count = tostring net.ReadUInt 14
 
     name = ply\Nick!
     steamID = ply\SteamID!
-    plyLine = "#{name} (#{steamID})"
-    chat.AddText YELLOW, "The players from ", WHITE, plyLine, YELLOW,
-                 "'s Steam Groups have been banned ", RED, count, YELLOW " times on CFC!"
+
+    chat.AddText LIGHTBLUE, "[Staff] ", YELLOW, "[Warning] ", WHITE, "The players from ", YELLOW, name, GREY, "(", WHITE, steamID, GREY, ")", WHITE, "'s Steam Groups have been banned ", RED, count, WHITE, " times!"

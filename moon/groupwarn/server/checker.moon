@@ -1,3 +1,4 @@
+import insert from table
 import SteamIDTo64 from util
 import format, gmatch from string
 
@@ -10,30 +11,32 @@ class Checker
         @Storage = GroupCheck.Storage
         @Alerter = GroupCheck.Alerter
 
-    checkGroups: (ply, groups) =>
-        counts = @Storage\GetCounts groups
-        total = 0
+    checkGroups: (ply) =>
+        steamID64 = ply\SteamID64!
+        @getGroupsForPlayer steamID64, (groups) ->
+            counts = @Storage\GetTotals groups
+            total = 0
 
-        for _, count in pairs counts
-            total += count
+            for entry in *counts
+                print entry.count
+                total += entry.count
 
-        return if total ==0
+            return if total == 0
 
-        @Alerter\alert ply, totals
+            @Alerter\alert ply, total
 
     getGroupsForPlayer: (steamID64, cb) =>
         steamid = SteamIDTo64 steamID64
-        url = format urlTemplate, steamID64
+        url = format @@urlTemplate, steamID64
 
         success = (body) ->
             groups = {}
 
-            for v in *gmatch body, pattern
-                -- FIXME: Figure out what this actually looks like
-                print v
-                PrintTable v if istable v
+            for groupID in gmatch body, @@groupPattern
+                insert groups, groupID
 
             @Cache\set steamID64, groups
+            cb groups
 
         http.Fetch url, success
 

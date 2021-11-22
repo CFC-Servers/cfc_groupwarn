@@ -15,7 +15,7 @@ class Alerter
     alert: (ply, count) =>
         net.Start "CFC_GroupCheck_BannedGroupMembers"
         net.WriteEntity ply
-        net.WriteUInt 14, count
+        net.WriteUInt count, 14
         net.Send @getPlayersToAlert!
 
-GroupCache.Alerter = Alerter!
+GroupCheck.Alerter = Alerter!

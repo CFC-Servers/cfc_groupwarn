@@ -5,11 +5,11 @@ class Storage
     GetTotals: (groupIDs) =>
         groups = concat groupIDs, ", "
 
-        result = sql.Query format [[
+        sql.Query format [[
             SELECT
                 count
             FROM
-                cfc_groupCheck
+                cfc_groupcheck_totals
             WHERE
                 group_id IN (%s)
         ]], groups
