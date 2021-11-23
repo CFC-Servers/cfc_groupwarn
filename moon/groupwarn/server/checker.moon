@@ -1,6 +1,6 @@
 import insert from table
 import SteamIDTo64 from util
-import format, gmatch from string
+import format, gmatch, Trim from string
 
 class Checker
     @groupPattern: "<groupID64>(%d+)</groupID64>"
@@ -20,7 +20,6 @@ class Checker
             total = 0
 
             for entry in *counts
-                print entry.count
                 total += entry.count
 
             return if total == 0
@@ -34,7 +33,13 @@ class Checker
         success = (body) ->
             groups = {}
 
-            for groupID in gmatch body, @@groupPattern
+            for g in gmatch body, @@groupPattern
+                groupID = Trim g
+
+                if #groupID ~= 18
+                    ErrorNoHaltWithStack "Got an invalid Group ID: ", g
+                    continue
+
                 insert groups, groupID
 
             @Cache\set steamID64, groups
