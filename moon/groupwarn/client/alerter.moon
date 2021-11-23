@@ -6,6 +6,8 @@ LIGHTBLUE = Color 58, 188, 230
 
 net.Receive "CFC_GroupCheck_BannedGroupMembers", ->
     ply = net.ReadEntity!
+    return unless IsValid ply
+
     count = tostring net.ReadUInt 14
 
     name = ply\Nick!
