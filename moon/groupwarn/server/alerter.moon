@@ -6,6 +6,7 @@ class Alerter
         moderator: true
 
     shouldAlert: (ply) =>
+        return false if ply\IsPlayer!
         return true if ply\IsAdmin!
         return true if @@alertRanks[ply\GetUserGroup!]
         false
