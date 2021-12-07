@@ -15,6 +15,8 @@ class Storage
         ]], groups
 
     AddTotals: (groupIDs) =>
+        return unless groupIDs
+
         sql.Begin!
 
         for id in *groupIDs
